@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models.navigation_items import Menu
+from ..models.menu import Menu
 
 class NavigationItemSerializer(serializers.ModelSerializer):
     sub_items = serializers.SerializerMethodField()

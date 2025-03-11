@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from ..models.navigation_items import Menu
-from ..serializers.navigation_item_serializer import NavigationItemSerializer
+from ..models.menu import Menu
+from ..serializers.menu_serializers import NavigationItemSerializer
 
 class CreateNavigationItemView(generics.CreateAPIView):
     """API to create a new navigation item (menu or submenu)."""
