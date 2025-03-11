@@ -18,8 +18,6 @@ def testFunction(request):
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])  # Required to handle file uploads
 def upload_user_photo(request):
-    print(request.data,'this is the request')
-    print(request.FILES, "this is the uploaded file")
     serializer = UserPhotoSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
