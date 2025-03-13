@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User  # Import User model
+from .user import PortalUser
 
 class Menu(models.Model):
     user = models.ForeignKey(
-        User,  # Each menu belongs to a user
+        PortalUser,  # Each menu belongs to a user
         on_delete=models.CASCADE,
         related_name='menus'
     )
@@ -13,14 +13,6 @@ class Menu(models.Model):
     image = models.ImageField(upload_to='menu_images/', blank=True, null=True)  # Added for submenus too
     has_submenu = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,  # `null=True` means top-level menu items will have no parent
-        blank=True,
-        related_name='submenus'
-    )
-
     class Meta:
         ordering = ['order']
 

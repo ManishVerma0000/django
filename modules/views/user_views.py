@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
-from ..models.user import User;
+from ..models.user import PortalUser;
 from ..serializers.user_serializers import UserSerializer
 from django.contrib.auth.hashers import check_password
 
@@ -25,7 +24,7 @@ def login_user(request):
     if not username or not password:
         return Response({"error": "Username and password are required"}, status=status.HTTP_400_BAD_REQUEST)
     if(username):
-        user = User.objects.get(username=username)
+        user = PortalUser.objects.get(username=username)
         if password==user.password: 
             return Response({"message": "Login successful", "user_id": user.id}, status=status.HTTP_200_OK)
         else:

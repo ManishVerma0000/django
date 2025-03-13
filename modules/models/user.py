@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-class User(models.Model):
+class PortalUser(models.Model):
     username = models.CharField(_("Name"), max_length=100)
     email = models.EmailField(_("Email"))
     password=models.CharField(_("Password"), max_length=50)

@@ -24,3 +24,21 @@ def upload_user_photo(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+@api_view(['GET'])
+def get_testimonials(request):
+    testimonials = AddTestimonial.objects.all()
+    serializer = UserPhotoSerializer(testimonials, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+@api_view(['get'])
+def delete_testimonial(request, testimonial_id):
+    try:
+        testimonial = AddTestimonial.objects.get(id=testimonial_id)
+        testimonial.delete()
+        return Response({"message": "Testimonial deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+    except AddTestimonial.DoesNotExist:
+        return Response({"error": "Testimonial not found"}, status=status.HTTP_404_NOT_FOUND)

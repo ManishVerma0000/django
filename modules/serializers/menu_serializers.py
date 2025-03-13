@@ -1,23 +1,26 @@
 from rest_framework import serializers
-from ..models.menu import Menu
+from django.contrib.auth.models import User
+from ..models.menu_model import Menu;
+from ..models.submenu_model import SubMenu;
 
-class NavigationItemSerializer(serializers.ModelSerializer):
-    sub_items = serializers.SerializerMethodField()
+class SubMenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubMenu
+        fields = ['id', 'menuId', 'text', 'path', 'content', 'image', 'order']
+
+class MenuSerializer(serializers.ModelSerializer):
+    submenus = SubMenuSerializer(many=True, required=False)  # Allow nested submenus
 
     class Meta:
         model = Menu
-        fields = ['id', 'user', 'text', 'path', 'parent', 'is_active', 'order', 'sub_items']
-        extra_kwargs = {'user': {'read_only': True}}  # Prevent user modification
-
-    def get_sub_items(self, obj):
-        sub_items = obj.sub_items.all().order_by('order')
-        return NavigationItemSerializer(sub_items, many=True).data
+        fields = ['id', 'user', 'text', 'path', 'content', 'image', 'has_submenu', 'order', 'submenus']
 
     def create(self, validated_data):
-        request = self.context.get('request')
-        if request and hasattr(request, "user"):
-            validated_data["user"] = request.user
-        return super().create(validated_data)
+        submenus_data = validated_data.pop('submenus', [])  # Extract submenus if any
+        menu = Menu.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+        # Create submenus linked to the menu
+        for submenu_data in submenus_data:
+            SubMenu.objects.create(menuId=menu, **submenu_data)
+
+        return menu

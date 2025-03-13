@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from ..models.user import User
+from ..models.user import PortalUser
 
 class ContactUs(models.Model):
     user = models.ForeignKey(
-        User, 
+        PortalUser, 
         on_delete=models.CASCADE,  # If user is deleted, delete all related contacts
         related_name="contacts"  # Allows reverse querying (user.contacts.all())
     )
