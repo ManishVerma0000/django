@@ -35,10 +35,28 @@ def get_testimonials(request):
 
 
 @api_view(['get'])
-def delete_testimonial(request, testimonial_id):
+def delete_testimonial(request):
     try:
+        testimonial_id = request.query_params.get('id') 
         testimonial = AddTestimonial.objects.get(id=testimonial_id)
         testimonial.delete()
         return Response({"message": "Testimonial deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+    except AddTestimonial.DoesNotExist:
+        return Response({"error": "Testimonial not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+@api_view(['GET'])
+def get_testimonials_using_user_id(request):
+    try:
+        user_id = request.query_params.get('user') 
+        if not user_id:
+            return Response({"message":"Please enter the userId"})
+        else:
+            if user_id:
+                testimonials = AddTestimonial.objects.filter(user_id=user_id)
+                serializer = UserPhotoSerializer(testimonials, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        
     except AddTestimonial.DoesNotExist:
         return Response({"error": "Testimonial not found"}, status=status.HTTP_404_NOT_FOUND)
