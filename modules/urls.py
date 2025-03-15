@@ -5,7 +5,7 @@ from .views.testimonial import upload_user_photo,get_testimonials,get_testimonia
 from .views.user_views import create_user,login_user
 from .views.menu_views import create_menu
 from .views.carasoul_views import add_carasoul_image,delete_carasoul_image,getCarasoulList,upload_carousel_images,getCarasoulListPerUser
-
+from .views.pop_up_views import upload_pop_Up_images,get_pop_up_images,upload_popup_images,get_pop_up_image_user,delete_pop_up_image
 
 urlpatterns = [
     path('create-contact-us',create_contactUs,name='create_user'),
@@ -24,4 +24,10 @@ urlpatterns = [
     path('list/carasoul', getCarasoulList, name='getCarasoulList'),
     path('upload-carousel-images', upload_carousel_images, name='upload_carousel_images'),
     path('user/carasoul', getCarasoulListPerUser, name='getCarasoulListPerUser'),
+    path('user/uploadimages', upload_pop_Up_images, name='upload_pop_Up_images'),
+    path('user/popup/image', get_pop_up_images, name='get_pop_up_images'),
+    path('popup/images', upload_popup_images, name='upload_popup_images'),
+    path('delete/popup', delete_pop_up_image, name='delete_pop_up_image'),
+    path('user/popup', get_pop_up_image_user, name='get_pop_up_image_user')
+    
 ]

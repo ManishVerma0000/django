@@ -14,8 +14,6 @@ class ContactUs(models.Model):
     address = models.TextField(_("Address"))
     landMark = models.TextField(_("LandMark"))
     state=models.TextField(_('State'))
-    
-    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
