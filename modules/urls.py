@@ -6,6 +6,8 @@ from .views.user_views import create_user,login_user
 from .views.menu_views import create_menu
 from .views.carasoul_views import add_carasoul_image,delete_carasoul_image,getCarasoulList,upload_carousel_images,getCarasoulListPerUser
 from .views.pop_up_views import upload_pop_Up_images,get_pop_up_images,upload_popup_images,get_pop_up_image_user,delete_pop_up_image
+from .views.vision_mission_views import create_vision_mission,get_vision_mission_per_user,delete_vision_mission
+from .views.facilities_views import create_facilities,get_facilities_per_user,delete_facilities
 
 urlpatterns = [
     path('create-contact-us',create_contactUs,name='create_user'),
@@ -28,6 +30,12 @@ urlpatterns = [
     path('user/popup/image', get_pop_up_images, name='get_pop_up_images'),
     path('popup/images', upload_popup_images, name='upload_popup_images'),
     path('delete/popup', delete_pop_up_image, name='delete_pop_up_image'),
-    path('user/popup', get_pop_up_image_user, name='get_pop_up_image_user')
+    path('user/popup', get_pop_up_image_user, name='get_pop_up_image_user'),
+    path('create-vision-mission',create_vision_mission, name='create_vision_mission'),
+    path('get-vision-mission',get_vision_mission_per_user, name='get_vision_mission_per_user'),
+    path('delete-vision-mission',delete_vision_mission, name='delete_vision_mission'),
+    path('create-facilities',create_facilities, name='create_facilities'),
+    path('get-facilities',get_facilities_per_user, name='get_facilities_per_user'),
+    path('delete-facilities',delete_facilities, name='delete_facilities'),
     
 ]
